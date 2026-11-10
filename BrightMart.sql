@@ -142,6 +142,44 @@ SELECT product_name, price
 FROM products
 ORDER BY product_name ASC;
 
+--JOIN queries--
+--INNER JOIN--
+
+SELECT 
+orders.order_id,
+customers.first_name,
+customers.last_name,
+orders.status
+FROM orders
+INNER JOIN customers
+ON orders.customer_id = customers.customer_id; 
+
+--table aliases--
+SELECT o.order_id,
+c.first_name,
+c.last_name,
+o.status
+FROM orders AS o
+INNER JOIN customers AS c
+ON o.customer_id = c.customer_id;
+
+--Join three tables--
+SELECT
+o.order_id,
+c.first_name,
+p.product_name,
+oi.quantity,
+oi.unit_price
+FROM order AS o
+INNER JOIN customers AS c
+ON o.customer_id c.customers_id
+INNER JOIN order_items AS oi
+ON o.order_id = oi.order_id
+INNER JOIN products AS p
+ON oi.product_id = p.product_id;
+
+
+
 
 
 
