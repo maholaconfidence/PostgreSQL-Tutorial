@@ -178,14 +178,55 @@ ON o.order_id = oi.order_id
 INNER JOIN products AS p
 ON oi.product_id = p.product_id;
 
+--UPDATE, ALTER and DELETE--
+-- UPDATE – change existing data--
+
+SELECT product_id , product_name. price
+FROM products
+WHERE product_name = 'USB-C Cable';
+
+UPDATE product 
+SET price = 109.50
+WHERE product_name = 'USB-C Cable'
 
 
 
+/*Tutorial 1 checkpoint--
+ 1.A database is an organised place to store and manage this information.A table stores one type of information.
+ 2.To sore information in tables and let related tables refer to one another. 
+ 3.In pgAdmin, refresh the Databases list, select brightmart, and open a Query Tool connected to it.
+
+ Tutorail 2 checkpoint
+ 1. A single shop table might repeat a customer's name and address every time that customer places an order.
+ 2. An order belongs to a customer. Therefore, the orders table needs a column that identifies the customer who placed it.
+ 3. Calculations wouldn't be able to occur.
+ 4. Prevents negative prices.
+ 5. Because the product's current price may change after an order is placed.
+
+ Tutorail 3 checkpoint
+  A primary key uniquely identifies each row in a table.
+  For example, two customers may both be named “Alex Smith”. Their names are not reliable unique identifiers. Their customer_id values are.
+
+  A foreign key connects a row in one table to a valid row in another table.
+   For example orders.customer_id references customers.customer_id.
 
 
+ */
 
+ -- LEFT JOIN--
+ SELECT
+    c.customer_id,
+    c.first_name,
+    c.last_name,
+    o.order_id
+FROM customers AS c
+LEFT JOIN orders AS o
+    ON c.customer_id = o.customer_id
+ORDER BY c.customer_id;
+  
 
-
+  
+  
 
 
 
