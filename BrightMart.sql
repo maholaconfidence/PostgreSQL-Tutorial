@@ -255,6 +255,100 @@ WHERE product_name = 'USB-C Cable';
 ALTER TABLE customers
 ADD COLUMN city VARCHAR(80);
 
+ALTER TABLE customers
+RENAME COLUMN phone TO phone_number;
+
+ALTER TABLE customers
+ALTER COLUMN city TYPE VARCHAR(100);
+
+ALTER TABLE customers
+DROP COLUMN city;
+
+-- DELETE – remove selected rows--
+SELECT customer_id, first_name, last_name, email
+FROM customers
+WHERE email = 'test@example.com';
+
+DELETE FROM customers
+WHERE email = 'test@example.com';
+
+--Use transactions for safer changes--
+--A transaction lets you group changes and either commit them or undo them before they are committed.
+BEGIN;
+
+UPDATE products
+SET price = 119.50
+WHERE product_name = 'USB-C Cable';
+
+SELECT product_name, price
+FROM products
+WHERE product_name = 'USB-C Cable';
+
+
+--Tutorial 8 – SUM, AVG and other aggregate queries
+-- SUM – calculate a total
+SELECT
+    SUM(quantity * unit_price) AS total_order_value
+FROM order_items;
+
+SELECT
+    ROUND(AVG(price), 2) AS average_product_price
+FROM products;
+
+--COUNT – count records
+SELECT COUNT(*) AS total_customers
+FROM customers;
+
+--MIN and MAX
+SELECT
+    MIN(price) AS cheapest_price,
+    MAX(price) AS most_expensive_price
+FROM products;
+
+--GROUP BY – calculate totals per group
+SELECT
+    order_id,
+    SUM(quantity * unit_price) AS order_total
+FROM order_items
+GROUP BY order_id
+ORDER BY order_id;
+
+-- Combine JOIN and GROUP BY
+
+SELECT
+    c.customer_id,
+    c.first_name,
+    c.last_name,
+    SUM(oi.quantity * oi.unit_price) AS total_spent
+FROM customers AS c
+INNER JOIN orders AS o
+    ON c.customer_id = o.customer_id
+INNER JOIN order_items AS oi
+    ON o.order_id = oi.order_id
+GROUP BY c.customer_id, c.first_name, c.last_name
+ORDER BY total_spent DESC;
+
+--HAVING – filter grouped results
+SELECT
+    order_id,
+    SUM(quantity * unit_price) AS order_total
+FROM order_items
+GROUP BY order_id
+HAVING SUM(quantity * unit_price) > 500;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
