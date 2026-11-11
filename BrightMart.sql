@@ -336,9 +336,42 @@ FROM order_items
 GROUP BY order_id
 HAVING SUM(quantity * unit_price) > 500;
 
+--Tutorial 9 – LIMIT and DROP TABLE
+-- return only a certain number of rows
+SELECT product_name, price
+FROM products
+ORDER BY price DESC
+LIMIT 5;
+--OFFSET – skip rows
 
+SELECT product_name, price
+FROM products
+ORDER BY product_id
+LIMIT 5 OFFSET 5;
+-- DROP TABLE – remove a table
 
+CREATE TABLE practice_notes (
+    note_id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    note TEXT NOT NULL
+);
 
+INSERT INTO practice_notes (note)
+VALUES ('This table is only for DROP TABLE practice');
+SELECT * FROM practice_notes;
+DROP TABLE practice_notes;
+
+--Tutorial 10 – Final review challenge
+/*
+What is a primary key?
+ A primary key is a column (or set of columns) that uniquely identifies each row in a database table. It must contain unique values and cannot contain NULL values.
+What is a foreign key?
+ A foreign key is a column in one table that links to the primary key of another table. It enforces a relationship between the two tables and prevents invalid data from being entered.
+Why do we use joins?
+ Joins allow you to combine rows from two or more tables based on a related column between them.
+What is the difference between WHERE and HAVING?
+WHERE filters individual rows before any grouping or aggregation takes place. HAVING filters grouped results after a GROUP BY clause and aggregate functions (like COUNT or SUM) have been applied.
+Why should you be careful when using DELETE?
+Why Be Careful with DELETE: If you run a DELETE statement without a WHERE clause, SQL will permanently erase every single row in that table. Unless your database is inside an active transaction that you can roll back, the lost data cannot be easily recovered.
 
 
 
