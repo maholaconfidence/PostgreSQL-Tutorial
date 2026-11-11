@@ -224,9 +224,38 @@ LEFT JOIN orders AS o
     ON c.customer_id = o.customer_id
 ORDER BY c.customer_id;
   
+--Tutorial 7 – UPDATE, ALTER and DELETE--UPDATE – change existing data--
 
+SELECT product_id, product_name, price
+FROM products
+WHERE product_name = 'USB-C Cable';
   
-  
+ UPDATE products
+SET price = 109.50
+WHERE product_name = 'USB-C Cable'; 
+
+SELECT product_name, price
+FROM products
+WHERE product_name = 'USB-C Cable';
+
+UPDATE products
+SET price = 109.50;
+
+--Update more than one column--
+
+UPDATE products
+SET
+    stock_quantity = 45,
+    description = 'One metre USB-C charging and data cable'
+WHERE product_name = 'USB-C Cable';
+
+
+--ALTER TABLE – change the table structure
+
+ALTER TABLE customers
+ADD COLUMN city VARCHAR(80);
+
+
 
 
 
